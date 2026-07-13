@@ -199,8 +199,6 @@ Orbit ID は秘密値ではありません。発行時刻、Type、Node、およ
 
 ## 14. Open items before stable v1
 
-- v2 を識別する外部 versioning 方針
-
 draft-official な Type 割当は [Type Registry](type-registry.md) を参照。stable v1 まで変更可能です。
 
 時計巻き戻りの既定許容時間は §7（`5_000` ms）で定義します。
@@ -211,3 +209,6 @@ conformance fixture 形式と初期 encode/decode ケースは
 [`spec/conformance/`](../../spec/conformance/) にあります。
 
 canonical API error codes は [Library API](library-api.md) で定義します。
+
+外部 versioning 方針: design-decisions §7 と互換性 §13 を参照（帯域内 version なし。将来形式は
+64-bit 値の外で識別）。
