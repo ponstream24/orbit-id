@@ -69,3 +69,7 @@ orbit/
 ```
 
 `packages/` と `benchmark/` 配下は、仕様が実装可能な安定度になるまでのプレースホルダーです。
+
+## Stable release
+
+`draft` から `v1.0.0` への昇格基準は [Stable v1 昇格基準](stable-release-criteria.md) を参照。
