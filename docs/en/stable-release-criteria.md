@@ -31,15 +31,17 @@ All of the following MUST be true:
    documented.
 7. **Versioning policy** — No in-band version bit; external identification of future formats is
    documented.
-8. **Reference implementation** — At least one language package (TypeScript preferred) passes the
+8. **Core package** — `packages/core` exists with shared reference logic and fixtures aligned to
+   `spec/conformance/` (the monorepo source of truth other language packages can follow).
+9. **Reference implementation** — At least one language package (TypeScript preferred) passes the
    conformance suite in CI.
-9. **Status labels** — Spec / README Status fields are updated from Draft to stable `v1.0.0`.
+10. **Status labels** — Spec / README Status fields are updated from Draft to stable `v1.0.0`.
 
 ## Release checklist
 
 When cutting stable `v1.0.0`:
 
-- [ ] Confirm the required list above
+- [ ] Confirm the required list above (including `packages/core`)
 - [ ] Set specification status to `v1.0.0`
 - [ ] Update README / ROADMAP status wording
 - [ ] Tag the repository `v1.0.0`

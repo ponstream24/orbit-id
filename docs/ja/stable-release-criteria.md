@@ -28,14 +28,16 @@
    振る舞いをカバーしている。
 6. **Library API** — 共通 operations、error codes、時計注入、並行性規則が文書化されている。
 7. **Versioning 方針** — 帯域内 version bit なし。将来形式の外部識別が文書化されている。
-8. **参照実装** — 少なくとも 1 言語パッケージ（推奨: TypeScript）が CI で conformance suite に合格する。
-9. **Status 表記** — 仕様 / README の Status が Draft から stable `v1.0.0` へ更新される。
+8. **Core パッケージ** — `packages/core` があり、`spec/conformance/` に整合した共有の参照ロジックと
+   fixture を提供する（他言語パッケージが追従するモノレポ上の基準）。
+9. **参照実装** — 少なくとも 1 言語パッケージ（推奨: TypeScript）が CI で conformance suite に合格する。
+10. **Status 表記** — 仕様 / README の Status が Draft から stable `v1.0.0` へ更新される。
 
 ## リリース checklist
 
 stable `v1.0.0` を切るとき:
 
-- [ ] 上記の必須リストを確認した
+- [ ] 上記の必須リストを確認した（`packages/core` を含む）
 - [ ] 仕様 Status を `v1.0.0` にした
 - [ ] README / ROADMAP の Status 文言を更新した
 - [ ] リポジトリに `v1.0.0` タグを打った
