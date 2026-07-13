@@ -7,6 +7,9 @@ decode that ID back to the original fields. Timestamps are UTC. Hex values are b
 representations. Type values in these vectors are for bit-layout verification only and do not imply
 official registry assignments.
 
+Machine-readable fixtures live in [`spec/conformance/`](../../spec/conformance/). Automated tests
+SHOULD load those JSON files; this document is the human-readable companion.
+
 ## Vector 1: Epoch
 
 | Field | Value |
