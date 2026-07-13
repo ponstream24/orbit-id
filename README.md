@@ -72,6 +72,7 @@ is required for external exposure, or as authorization tokens.
 - [Node Management](docs/en/node-management.md)
 - [Design Decisions](docs/en/design-decisions.md)
 - [Library API (Draft)](docs/en/library-api.md)
+- [Stable v1 promotion criteria](docs/en/stable-release-criteria.md)
 - [Roadmap](docs/en/roadmap.md)
 - [Contributing](docs/en/contributing.md)
 - [Security Policy](docs/en/security.md)

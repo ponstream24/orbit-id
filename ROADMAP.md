@@ -71,3 +71,8 @@ orbit/
 
 Directories under `packages/` and `benchmark/` are placeholders until the specification is stable
 enough to implement.
+
+## Stable release
+
+Criteria for promoting `draft` to `v1.0.0` are documented in
+[Stable v1 promotion criteria](docs/en/stable-release-criteria.md).
