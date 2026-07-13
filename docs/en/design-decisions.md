@@ -37,11 +37,20 @@ keeps state and the specification simpler. Therefore 1,024 IDs/ms is a per-node 
 If Redis is used, it is limited to the Node-lease control plane. Avoid per-ID `INCR` or distributed
 locks so network latency and Redis outages stay off the normal generation path.
 
-## 7. No embedded version in v1
+## 7. No embedded version in v1 (reaffirmed)
 
 Adding a version bit would require shrinking Node, Type, Sequence, or lifetime. v1 prioritizes
-capacity and identifies future formats externally via API / storage metadata. This choice
-complicates a v2 migration, so it will be re-evaluated before stable v1.
+capacity. **Before stable v1, this choice is reaffirmed:** Orbit ID v1 values do not embed a version
+field.
+
+Future incompatible formats MUST be identified externally, for example by:
+
+- storage column / table dedicated to Orbit ID v1
+- API field name or schema (`orbitId` vs `orbitIdV2`)
+- explicit prefix or envelope outside the 64-bit value
+
+Existing v1 IDs MUST NOT be reinterpreted under a later layout. Migration to a future format is an
+application / storage concern, not an in-band bit in the v1 integer.
 
 ## 8. Millisecond ordering, not total ordering
 
