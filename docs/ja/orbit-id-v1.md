@@ -199,7 +199,6 @@ Orbit ID は秘密値ではありません。発行時刻、Type、Node、およ
 
 ## 14. Open items before stable v1
 
-- canonical API error codes
 - v2 を識別する外部 versioning 方針
 
 draft-official な Type 割当は [Type Registry](type-registry.md) を参照。stable v1 まで変更可能です。
@@ -210,3 +209,5 @@ draft-official な Type 割当は [Type Registry](type-registry.md) を参照。
 
 conformance fixture 形式と初期 encode/decode ケースは
 [`spec/conformance/`](../../spec/conformance/) にあります。
+
+canonical API error codes は [Library API](library-api.md) で定義します。
