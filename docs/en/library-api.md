@@ -1,23 +1,23 @@
-# Library API (Draft)
+# Library API
 
 [日本語](../ja/library-api.md)
 
-Status: Draft — not yet implemented.
+Status: Draft — not yet implemented. Semantic surface is stabilized for multi-language alignment;
+names and types still follow each language’s conventions.
 
-This document describes the intended common API surface for Orbit ID libraries. Exact names and
-types will follow each language's conventions, but semantic behavior SHOULD match.
+This document describes the common API surface for Orbit ID libraries.
 
 ## Goals
 
 - Same operations across TypeScript, Java, Go, Rust, PHP, and CLI
 - Encode / decode against the [Orbit ID v1 Specification](orbit-id-v1.md)
-- Pass the [Canonical Test Vectors](test-vectors.md)
+- Pass the [Canonical Test Vectors](test-vectors.md) / [`spec/conformance/`](../../spec/conformance/)
 
 ## Operations
 
 | Operation | Input | Output | Notes |
 | --- | --- | --- | --- |
-| `generate(type)` | Type (`0..63`) | Orbit ID | Requires an assigned Node and generator state |
+| `generate(type)` | Type (`0..63`) | Orbit ID | Requires an assigned Node and generator state. Type `0` (`RESERVED`) MUST be rejected |
 | `parse(id)` | ID (integer or decimal string) | Fields object | Rejects non-canonical decimal strings per the spec |
 | `getTimestamp(id)` | ID | Timestamp / time | Milliseconds since Orbit Epoch, or derived UTC time |
 | `getType(id)` | ID | Type | |
@@ -26,6 +26,9 @@ types will follow each language's conventions, but semantic behavior SHOULD matc
 | `isValid(id)` | ID candidate | boolean / result | Means **syntactically valid**, not “issued” |
 
 `isValid` MUST NOT claim that an ID was issued by an Orbit generator. See specification §11.
+
+Optional helpers MAY be provided (`encode(fields)`, `toDecimalString(id)`, `fromDecimalString(s)`)
+but MUST NOT diverge from the operations above.
 
 ## Value representation
 
@@ -43,12 +46,55 @@ Example JSON:
 }
 ```
 
+## Canonical error codes
+
+Libraries SHOULD expose these stable code strings (or language enums mapping to them):
+
+| Code | When |
+| --- | --- |
+| `INVALID_TYPE` | Type outside `0..63`, or `generate(0)` |
+| `INVALID_NODE` | Node outside `0..127` at construction / configuration |
+| `INVALID_SEQUENCE` | Sequence outside `0..1023` when encoding fields |
+| `INVALID_TIMESTAMP` | Timestamp outside the 41-bit range when encoding fields |
+| `INVALID_DECIMAL` | Non-canonical or out-of-range decimal string |
+| `CLOCK_ROLLBACK` | Wall clock behind `last_timestamp` beyond tolerance |
+| `SEQUENCE_EXHAUSTED` | Same-ms capacity exceeded and the implementation chooses to fail instead of waiting |
+| `NODE_OWNERSHIP_LOST` | Lease / ownership cannot be confirmed; fail closed |
+
+Exact exception types are language-specific; the code string / enum identity SHOULD match.
+
+## Clock source
+
+Generators MUST obtain “now” through an injectable clock abstraction equivalent to:
+
+```text
+currentOrbitTimestampMs() -> unsigned integer
+```
+
+returning milliseconds since Orbit Epoch (or Unix ms convertible by subtracting `1767225600000`).
+
+- Production default: system wall clock
+- Tests: deterministic / fake clock driven by conformance fixtures
+- A monotonic helper MAY be used to avoid issuing while waiting through a tolerated rollback, but the
+  encoded Timestamp field remains Orbit-Epoch wall milliseconds as defined by the specification
+
+## Concurrency
+
+Within one generator instance:
+
+- `generate` MUST be serialized (mutex / actor / single-threaded ownership)
+- Concurrent calls MUST NOT interleave Sequence updates
+- Sharing one Node ID across multiple generator instances in one process is unsupported unless the
+  implementation provides an explicitly documented, process-wide singleton
+
+Across processes, exclusivity is provided by Node allocation — not by the library mutex.
+
 ## Generator responsibilities
 
 A generator that implements `generate` MUST:
 
 - Hold Node ID, last Timestamp, and Sequence
-- Serialize generation within the process
+- Serialize generation within the process as above
 - Follow clock-rollback and Sequence exhaustion rules from the specification
 - Fail closed when Node ownership cannot be confirmed (if lease-based)
 

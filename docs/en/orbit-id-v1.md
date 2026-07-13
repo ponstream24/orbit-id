@@ -202,7 +202,6 @@ Existing IDs MUST NOT be reinterpreted as a new format.
 
 ## 14. Open items before stable v1
 
-- Canonical API error codes
 - External versioning policy for identifying v2
 
 Draft-official Type assignments live in the [Type Registry](type-registry.md). They remain mutable
@@ -215,3 +214,5 @@ Production Node allocation and reuse quarantine defaults are defined in
 
 The conformance fixture format and initial encode/decode cases live in
 [`spec/conformance/`](../../spec/conformance/).
+
+Canonical API error codes are defined in [Library API](library-api.md).
