@@ -45,6 +45,9 @@ Orbit ID パッケージは [npm Trusted Publishing](https://docs.npmjs.com/trus
 4. Publish workflow の成功を確認
 5. `npm view @orbit-id/core version` などで確認
 
+Maven / Go / crates / Packagist を含むモノレポタグ方針は
+[横断の version / tagging 方針](cross-registry-versioning.md) を参照。
+
 ## 初回公開について
 
 - `@orbit-id/core` と `@orbit-id/typescript` は手動で `1.0.0` を初回公開した

@@ -18,7 +18,8 @@ DefinitelyTyped package.
 Language packages SHOULD expose the common operations described in
 [Library API](../docs/en/library-api.md).
 
-Publishing: [npm Trusted Publishing](../docs/en/npm-trusted-publishing.md) (TypeScript); other
-registries in [#42](https://github.com/orbit-id/orbit-id/issues/42).
+Publishing: [npm Trusted Publishing](../docs/en/npm-trusted-publishing.md) (TypeScript);
+[cross-registry versioning](../docs/en/cross-registry-versioning.md); other registries in
+[#42](https://github.com/orbit-id/orbit-id/issues/42).
 
 See the [Phase 3 roadmap](../docs/en/roadmap.md#phase-3--expand).
