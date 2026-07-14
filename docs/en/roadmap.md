@@ -48,12 +48,12 @@ See [Library API](library-api.md).
 
 Tracked on GitHub with label `phase-3`:
 
-| Work | Issue |
-| --- | --- |
+| Work | Issue | Status |
+| --- | --- | --- |
 | Benchmark framework under `benchmark/` | [#18](https://github.com/ponstream24/orbit-id/issues/18) |
 | Optional Redis Node lease (+ optional Orbit node service) | [#19](https://github.com/ponstream24/orbit-id/issues/19) |
 | Playground (`packages/playground`) | [#20](https://github.com/ponstream24/orbit-id/issues/20) |
-| Java / Go / Rust / PHP packages | [#21](https://github.com/ponstream24/orbit-id/issues/21) |
+| Java / Go / Rust / PHP packages | [#21](https://github.com/ponstream24/orbit-id/issues/21) | done in-repo |
 | Remaining registries (Maven / Go modules / crates.io / Packagist) | [#42](https://github.com/ponstream24/orbit-id/issues/42) |
 
 npm publish for TypeScript packages is complete ([#22](https://github.com/ponstream24/orbit-id/issues/22) closed). #42 covers other ecosystems as language packages land.
@@ -66,10 +66,10 @@ orbit-id/
 │   ├── core          ← shipped (npm)
 │   ├── typescript    ← shipped (npm)
 │   ├── cli           ← shipped (npm)
-│   ├── java          ← phase 3 (#21)
-│   ├── go            ← phase 3 (#21)
-│   ├── rust          ← phase 3 (#21)
-│   ├── php           ← phase 3 (#21)
+│   ├── java          ← shipped (monorepo)
+│   ├── go            ← shipped (monorepo)
+│   ├── rust          ← shipped (monorepo)
+│   ├── php           ← shipped (monorepo)
 │   └── playground    ← phase 3 (#20)
 ├── spec/
 ├── benchmark/        ← phase 3 (#18)

@@ -5,6 +5,10 @@
 | [`@orbit-id/core`](core/) | Reference encode / decode / generator and conformance tests | npm shipped |
 | [`@orbit-id/typescript`](typescript/) | TypeScript language package (re-exports core) | npm shipped |
 | [`@orbit-id/cli`](cli/) | Minimal CLI (`parse` / `generate`) | npm shipped |
+| [`java`](java/) | Java reference library | monorepo |
+| [`go`](go/) | Go reference library | monorepo |
+| [`rust`](rust/) | Rust reference crate | monorepo |
+| [`php`](php/) | PHP reference library | monorepo |
 
 Types ship **inside** each package (`dist/*.d.ts`). There is no separate `@types/orbit-id`
 DefinitelyTyped package.

@@ -45,12 +45,12 @@ isValid(id)
 
 GitHub の `phase-3` ラベルで追跡します。
 
-| 作業 | Issue |
-| --- | --- |
+| 作業 | Issue | Status |
+| --- | --- | --- |
 | `benchmark/` の計測枠組み | [#18](https://github.com/ponstream24/orbit-id/issues/18) |
 | 任意の Redis Node lease（+ 任意の Orbit ノードサービス） | [#19](https://github.com/ponstream24/orbit-id/issues/19) |
 | Playground（`packages/playground`） | [#20](https://github.com/ponstream24/orbit-id/issues/20) |
-| Java / Go / Rust / PHP パッケージ | [#21](https://github.com/ponstream24/orbit-id/issues/21) |
+| Java / Go / Rust / PHP パッケージ | [#21](https://github.com/ponstream24/orbit-id/issues/21) | リポジトリ内完了 |
 | 残りのレジストリ（Maven / Go modules / crates.io / Packagist） | [#42](https://github.com/ponstream24/orbit-id/issues/42) |
 
 TypeScript 系の npm 公開は完了（[#22](https://github.com/ponstream24/orbit-id/issues/22) closed）。他エコシステムは言語実装に合わせて #42 で追います。
@@ -63,10 +63,10 @@ orbit-id/
 │   ├── core          ← 公開済み (npm)
 │   ├── typescript    ← 公開済み (npm)
 │   ├── cli           ← 公開済み (npm)
-│   ├── java          ← phase 3 (#21)
-│   ├── go            ← phase 3 (#21)
-│   ├── rust          ← phase 3 (#21)
-│   ├── php           ← phase 3 (#21)
+│   ├── java          ← shipped (monorepo)
+│   ├── go            ← shipped (monorepo)
+│   ├── rust          ← shipped (monorepo)
+│   ├── php           ← shipped (monorepo)
 │   └── playground    ← phase 3 (#20)
 ├── spec/
 ├── benchmark/        ← phase 3 (#18)
