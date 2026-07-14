@@ -1,6 +1,6 @@
 # Benchmarks
 
-[Phase-3 #18](https://github.com/ponstream24/orbit-id/issues/18)
+[Phase-3 #18](https://github.com/orbit-id/orbit-id/issues/18)
 
 Measure **single-Node** generator throughput using `@orbit-id/core`.
 
