@@ -1,18 +1,18 @@
 # Packages
 
-| Package | Role |
-| --- | --- |
-| [`@orbit-id/core`](core/) | Reference encode / decode / generator and conformance tests |
-| [`@orbit-id/typescript`](typescript/) | TypeScript language package (re-exports core) |
-| [`@orbit-id/cli`](cli/) | Minimal CLI (`parse` / `generate`) |
+| Package | Role | Status |
+| --- | --- | --- |
+| [`@orbit-id/core`](core/) | Reference encode / decode / generator and conformance tests | npm shipped |
+| [`@orbit-id/typescript`](typescript/) | TypeScript language package (re-exports core) | npm shipped |
+| [`@orbit-id/cli`](cli/) | Minimal CLI (`parse` / `generate`) | npm shipped |
 
-## Planned (later)
+Types ship **inside** each package (`dist/*.d.ts`). There is no separate `@types/orbit-id`
+DefinitelyTyped package.
+
+## Phase 3 (planned)
 
 ```text
 packages/
-├── core
-├── typescript
-├── cli
 ├── java
 ├── go
 ├── rust
@@ -20,7 +20,10 @@ packages/
 └── playground
 ```
 
+See the [Phase 3 roadmap](../docs/en/roadmap.md#phase-3--expand) and issues #18–#21 / #42.
+
 Each language package SHOULD expose the common operations described in
 [Library API](../docs/en/library-api.md).
 
-Publishing uses [npm Trusted Publishing](../docs/en/npm-trusted-publishing.md).
+Publishing: [npm Trusted Publishing](../docs/en/npm-trusted-publishing.md) (TypeScript); other
+registries in [#42](https://github.com/ponstream24/orbit-id/issues/42).

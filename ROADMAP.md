@@ -6,7 +6,7 @@ Canonical English: [docs/en/roadmap.md](docs/en/roadmap.md)
 Orbit aims to be an ID generation **algorithm** with a specification, implementations, and tests —
 in the spirit of Snowflake and ULID — not merely a one-off library.
 
-## Near term (specification)
+## Near term (specification) — phase 0–1
 
 - [x] Draft Orbit ID v1 bit layout and epoch
 - [x] Canonical test vectors
@@ -34,44 +34,45 @@ isValid(id)
 
 See [Library API](docs/en/library-api.md).
 
-## Implementations
+## Phase 2 — reference implementation (done)
 
-- [x] TypeScript (`@orbit-id/core`, `@orbit-id/typescript`)
-- Java
-- Go
-- Rust
-- PHP
-- [x] CLI (`@orbit-id/cli`)
-- Playground
-- Benchmarks
+- [x] Monorepo scaffold + CI
+- [x] `@orbit-id/core` (encode / decode / generator + conformance)
+- [x] `@orbit-id/typescript`
+- [x] `@orbit-id/cli`
+- [x] npm Trusted Publishing workflow + public npm releases
 
-## Packaging / publish
+## Phase 3 — expand
 
-- [x] npm (`@orbit-id/core`, `@orbit-id/typescript`, `@orbit-id/cli`)
-- Maven, Go modules, crates.io, Packagist, etc.
-- Redis-backed Node lease as an optional control-plane component
-- Orbit node service (issuance path stays local; Redis is not on the hot path)
+Tracked on GitHub with label `phase-3`:
+
+| Work | Issue |
+| --- | --- |
+| Benchmark framework under `benchmark/` | [#18](https://github.com/ponstream24/orbit-id/issues/18) |
+| Optional Redis Node lease (+ optional Orbit node service) | [#19](https://github.com/ponstream24/orbit-id/issues/19) |
+| Playground (`packages/playground`) | [#20](https://github.com/ponstream24/orbit-id/issues/20) |
+| Java / Go / Rust / PHP packages | [#21](https://github.com/ponstream24/orbit-id/issues/21) |
+| Remaining registries (Maven / Go modules / crates.io / Packagist) | [#42](https://github.com/ponstream24/orbit-id/issues/42) |
+
+npm publish for TypeScript packages is complete ([#22](https://github.com/ponstream24/orbit-id/issues/22) closed). #42 covers other ecosystems as language packages land.
 
 ## Repository layout (monorepo)
 
 ```text
 orbit-id/
 ├── packages/
-│   ├── core          ← shipped
-│   ├── typescript    ← shipped
-│   ├── cli           ← shipped
-│   ├── java
-│   ├── go
-│   ├── rust
-│   ├── php
-│   └── playground
+│   ├── core          ← shipped (npm)
+│   ├── typescript    ← shipped (npm)
+│   ├── cli           ← shipped (npm)
+│   ├── java          ← phase 3 (#21)
+│   ├── go            ← phase 3 (#21)
+│   ├── rust          ← phase 3 (#21)
+│   ├── php           ← phase 3 (#21)
+│   └── playground    ← phase 3 (#20)
 ├── spec/
-├── benchmark/
+├── benchmark/        ← phase 3 (#18)
 └── docs/
 ```
-
-`packages/core`, `packages/typescript`, and `packages/cli` ship on npm. Remaining language
-packages, playground, and `benchmark/` are phase-3 work.
 
 ## Stable release
 

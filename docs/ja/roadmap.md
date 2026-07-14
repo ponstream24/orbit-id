@@ -5,7 +5,7 @@
 Orbit は、単なる ID 生成ライブラリではなく、Snowflake や ULID のように **仕様・実装・テストを備えた
 ID 生成アルゴリズム** として育てることを目指します。
 
-## 短期（仕様）
+## 短期（仕様） — phase 0–1
 
 - [x] Orbit ID v1 の bit layout と epoch の Draft
 - [x] Canonical test vectors
@@ -33,44 +33,45 @@ isValid(id)
 
 詳細は [Library API](library-api.md) を参照。
 
-## 実装
+## Phase 2 — 参照実装（完了）
 
-- [x] TypeScript (`@orbit-id/core`, `@orbit-id/typescript`)
-- Java
-- Go
-- Rust
-- PHP
-- [x] CLI (`@orbit-id/cli`)
-- Playground
-- Benchmarks
+- [x] モノレポ scaffold + CI
+- [x] `@orbit-id/core`（encode / decode / generator + conformance）
+- [x] `@orbit-id/typescript`
+- [x] `@orbit-id/cli`
+- [x] npm Trusted Publishing と公開リリース
 
-## パッケージ公開
+## Phase 3 — 拡張
 
-- [x] npm (`@orbit-id/core`, `@orbit-id/typescript`, `@orbit-id/cli`)
-- Maven、Go modules、crates.io、Packagist など
-- 任意の control plane としての Redis ベース Node lease
-- Orbit ノードサービス（発行経路はローカル完結。Redis は hot path に置かない）
+GitHub の `phase-3` ラベルで追跡します。
+
+| 作業 | Issue |
+| --- | --- |
+| `benchmark/` の計測枠組み | [#18](https://github.com/ponstream24/orbit-id/issues/18) |
+| 任意の Redis Node lease（+ 任意の Orbit ノードサービス） | [#19](https://github.com/ponstream24/orbit-id/issues/19) |
+| Playground（`packages/playground`） | [#20](https://github.com/ponstream24/orbit-id/issues/20) |
+| Java / Go / Rust / PHP パッケージ | [#21](https://github.com/ponstream24/orbit-id/issues/21) |
+| 残りのレジストリ（Maven / Go modules / crates.io / Packagist） | [#42](https://github.com/ponstream24/orbit-id/issues/42) |
+
+TypeScript 系の npm 公開は完了（[#22](https://github.com/ponstream24/orbit-id/issues/22) closed）。他エコシステムは言語実装に合わせて #42 で追います。
 
 ## リポジトリ構成（モノレポ）
 
 ```text
 orbit-id/
 ├── packages/
-│   ├── core          ← 公開済み
-│   ├── typescript    ← 公開済み
-│   ├── cli           ← 公開済み
-│   ├── java
-│   ├── go
-│   ├── rust
-│   ├── php
-│   └── playground
+│   ├── core          ← 公開済み (npm)
+│   ├── typescript    ← 公開済み (npm)
+│   ├── cli           ← 公開済み (npm)
+│   ├── java          ← phase 3 (#21)
+│   ├── go            ← phase 3 (#21)
+│   ├── rust          ← phase 3 (#21)
+│   ├── php           ← phase 3 (#21)
+│   └── playground    ← phase 3 (#20)
 ├── spec/
-├── benchmark/
+├── benchmark/        ← phase 3 (#18)
 └── docs/
 ```
-
-`packages/core` / `typescript` / `cli` は npm 公開済み。残りの言語パッケージ、playground、
-`benchmark/` は phase-3 の作業です。
 
 ## Stable release
 
