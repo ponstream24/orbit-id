@@ -1,4 +1,4 @@
-package com.github.ponstream24.orbitid;
+package com.github.orbitid;
 
 /** Decoded fields of an Orbit ID v1 value. */
 public final class OrbitFields {

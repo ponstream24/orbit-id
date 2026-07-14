@@ -4,15 +4,15 @@ Java 17+ implementation of the Orbit ID v1 format.
 
 ```xml
 <dependency>
-  <groupId>com.github.ponstream24</groupId>
+  <groupId>com.github.orbit-id</groupId>
   <artifactId>orbit-id</artifactId>
   <version>1.0.0</version>
 </dependency>
 ```
 
 ```java
-import com.github.ponstream24.orbitid.OrbitGenerator;
-import com.github.ponstream24.orbitid.OrbitId;
+import com.github.orbit-id.orbitid.OrbitGenerator;
+import com.github.orbit-id.orbitid.OrbitId;
 
 OrbitGenerator generator = new OrbitGenerator(7);
 long id = generator.generate(1);

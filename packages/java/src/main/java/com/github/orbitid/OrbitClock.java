@@ -1,4 +1,4 @@
-package com.github.ponstream24.orbitid;
+package com.github.orbitid;
 
 /** Supplies milliseconds elapsed since the Orbit epoch. */
 @FunctionalInterface

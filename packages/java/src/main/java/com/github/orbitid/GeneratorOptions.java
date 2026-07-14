@@ -1,4 +1,4 @@
-package com.github.ponstream24.orbitid;
+package com.github.orbitid;
 
 import java.util.Objects;
 import java.util.function.BooleanSupplier;

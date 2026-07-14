@@ -1,4 +1,4 @@
-package com.github.ponstream24.orbitid;
+package com.github.orbitid;
 
 /** The next action an {@link OrbitGenerator} would take. */
 public interface GenerateDecision {

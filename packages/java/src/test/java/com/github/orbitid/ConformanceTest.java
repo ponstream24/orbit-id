@@ -1,4 +1,4 @@
-package com.github.ponstream24.orbitid;
+package com.github.orbitid;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

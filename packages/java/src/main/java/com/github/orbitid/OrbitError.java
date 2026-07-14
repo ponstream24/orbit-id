@@ -1,4 +1,4 @@
-package com.github.ponstream24.orbitid;
+package com.github.orbitid;
 
 /** Exception raised when an Orbit ID value or generator operation is invalid. */
 public final class OrbitError extends RuntimeException {

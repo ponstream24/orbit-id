@@ -1,4 +1,4 @@
-package com.github.ponstream24.orbitid;
+package com.github.orbitid;
 
 /**
  * Codec and field accessors for Orbit ID v1.
