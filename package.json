@@ -8,9 +8,9 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build -w @orbit-id/core && npm run build -w @orbit-id/typescript && npm run build -w @orbit-id/cli",
-    "test": "npm run test -w @orbit-id/core && npm run test -w @orbit-id/typescript && npm run test -w @orbit-id/cli",
-    "typecheck": "npm run typecheck -w @orbit-id/core && npm run typecheck -w @orbit-id/typescript && npm run typecheck -w @orbit-id/cli"
+    "build": "npm run build -w @orbit-id/core && npm run build -w @orbit-id/typescript && npm run build -w @orbit-id/cli && npm run build -w @orbit-id/node-lease",
+    "test": "npm run test -w @orbit-id/core && npm run test -w @orbit-id/typescript && npm run test -w @orbit-id/cli && npm run test -w @orbit-id/node-lease",
+    "typecheck": "npm run typecheck -w @orbit-id/core && npm run typecheck -w @orbit-id/typescript && npm run typecheck -w @orbit-id/cli && npm run typecheck -w @orbit-id/node-lease"
   },
   "engines": {
     "node": ">=20"

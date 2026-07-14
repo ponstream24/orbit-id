@@ -45,10 +45,10 @@ isValid(id)
 
 GitHub の `phase-3` ラベルで追跡します。
 
-| 作業 | Issue |
-| --- | --- |
+| 作業 | Issue | Status |
+| --- | --- | --- |
 | `benchmark/` の計測枠組み | [#18](https://github.com/ponstream24/orbit-id/issues/18) |
-| 任意の Redis Node lease（+ 任意の Orbit ノードサービス） | [#19](https://github.com/ponstream24/orbit-id/issues/19) |
+| 任意の Redis Node lease（+ 任意の Orbit ノードサービス） | [#19](https://github.com/ponstream24/orbit-id/issues/19) | リポジトリ内完了（ノードサービスは任意・後続） |
 | Playground（`packages/playground`） | [#20](https://github.com/ponstream24/orbit-id/issues/20) |
 | Java / Go / Rust / PHP パッケージ | [#21](https://github.com/ponstream24/orbit-id/issues/21) |
 | 残りのレジストリ（Maven / Go modules / crates.io / Packagist） | [#42](https://github.com/ponstream24/orbit-id/issues/42) |
