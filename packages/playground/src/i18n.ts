@@ -65,8 +65,8 @@ export const messages: Record<Locale, Messages> = {
     langLabel: "Language",
     langEn: "English",
     langJa: "日本語",
-    docsSpec: "https://github.com/ponstream24/orbit-id/blob/main/docs/en/orbit-id-v1.md",
-    docsVectors: "https://github.com/ponstream24/orbit-id/blob/main/docs/en/test-vectors.md",
+    docsSpec: "https://github.com/orbit-id/orbit-id/blob/main/docs/en/orbit-id-v1.md",
+    docsVectors: "https://github.com/orbit-id/orbit-id/blob/main/docs/en/test-vectors.md",
   },
   ja: {
     htmlLang: "ja",
@@ -99,8 +99,8 @@ export const messages: Record<Locale, Messages> = {
     langLabel: "言語",
     langEn: "English",
     langJa: "日本語",
-    docsSpec: "https://github.com/ponstream24/orbit-id/blob/main/docs/ja/orbit-id-v1.md",
-    docsVectors: "https://github.com/ponstream24/orbit-id/blob/main/docs/ja/test-vectors.md",
+    docsSpec: "https://github.com/orbit-id/orbit-id/blob/main/docs/ja/orbit-id-v1.md",
+    docsVectors: "https://github.com/orbit-id/orbit-id/blob/main/docs/ja/test-vectors.md",
   },
 };
 

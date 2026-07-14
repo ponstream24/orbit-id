@@ -49,8 +49,8 @@ function render(): void {
         <nav class="top-links" aria-label="${t.navAria}">
           <a href="${t.docsSpec}" target="_blank" rel="noreferrer">${t.spec}</a>
           <a href="${t.docsVectors}" target="_blank" rel="noreferrer">${t.testVectors}</a>
-          <a href="https://github.com/ponstream24/orbit-id/tree/main/spec/conformance" target="_blank" rel="noreferrer">${t.conformance}</a>
-          <a href="https://github.com/ponstream24/orbit-id" target="_blank" rel="noreferrer">${t.github}</a>
+          <a href="https://github.com/orbit-id/orbit-id/tree/main/spec/conformance" target="_blank" rel="noreferrer">${t.conformance}</a>
+          <a href="https://github.com/orbit-id/orbit-id" target="_blank" rel="noreferrer">${t.github}</a>
         </nav>
       </div>
     </header>
