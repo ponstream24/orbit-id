@@ -45,6 +45,9 @@ It uses `permissions: id-token: write`, Node 24, and a recent npm CLI.
 4. Confirm the Publish workflow succeeded
 5. `npm view @orbit-id/core version` (and typescript / cli)
 
+For monorepo tags across Maven / Go / crates / Packagist, see
+[Cross-registry versioning](cross-registry-versioning.md).
+
 ## First publish notes
 
 - `@orbit-id/core` and `@orbit-id/typescript` were first published manually at `1.0.0`

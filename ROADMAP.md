@@ -54,7 +54,7 @@ Tracked on GitHub with label `phase-3`:
 | Java / Go / Rust / PHP packages | [#21](https://github.com/orbit-id/orbit-id/issues/21) | done in-repo |
 | Remaining registries (Maven / Go modules / crates.io / Packagist) | [#42](https://github.com/orbit-id/orbit-id/issues/42) |
 
-npm publish for TypeScript packages is complete ([#22](https://github.com/orbit-id/orbit-id/issues/22) closed). #42 covers other ecosystems as language packages land.
+npm publish for TypeScript packages is complete ([#22](https://github.com/orbit-id/orbit-id/issues/22) closed). #42 covers other ecosystems as language packages land. Shared tagging policy: [Cross-registry versioning](docs/en/cross-registry-versioning.md).
 
 ## Repository layout (monorepo)
 

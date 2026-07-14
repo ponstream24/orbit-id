@@ -74,6 +74,7 @@ is required for external exposure, or as authorization tokens.
 - [Design Decisions](docs/en/design-decisions.md)
 - [Library API](docs/en/library-api.md)
 - [npm Trusted Publishing](docs/en/npm-trusted-publishing.md)
+- [Cross-registry versioning](docs/en/cross-registry-versioning.md)
 - [Stable v1 promotion criteria](docs/en/stable-release-criteria.md)
 - [Roadmap](docs/en/roadmap.md)
 - [Contributing](docs/en/contributing.md)
@@ -89,8 +90,9 @@ npm install -g @orbit-id/cli
 orbit-id parse 140612821619842090
 ```
 
-See [`packages/`](packages/) and [npm Trusted Publishing](docs/en/npm-trusted-publishing.md) for
-releases. Redis (when used) manages Node leases only — ID generation stays local to each Orbit node.
+See [`packages/`](packages/), [npm Trusted Publishing](docs/en/npm-trusted-publishing.md), and
+[Cross-registry versioning](docs/en/cross-registry-versioning.md) for releases. Redis (when used)
+manages Node leases only — ID generation stays local to each Orbit node.
 
 ## License
 

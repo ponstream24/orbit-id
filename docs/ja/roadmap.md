@@ -53,7 +53,7 @@ GitHub の `phase-3` ラベルで追跡します。
 | Java / Go / Rust / PHP パッケージ | [#21](https://github.com/orbit-id/orbit-id/issues/21) | リポジトリ内完了 |
 | 残りのレジストリ（Maven / Go modules / crates.io / Packagist） | [#42](https://github.com/orbit-id/orbit-id/issues/42) |
 
-TypeScript 系の npm 公開は完了（[#22](https://github.com/orbit-id/orbit-id/issues/22) closed）。他エコシステムは言語実装に合わせて #42 で追います。
+TypeScript 系の npm 公開は完了（[#22](https://github.com/orbit-id/orbit-id/issues/22) closed）。他エコシステムは言語実装に合わせて #42 で追います。共通のタグ方針は [横断の version / tagging 方針](cross-registry-versioning.md)。
 
 ## リポジトリ構成（モノレポ）
 
