@@ -1,0 +1,106 @@
+name: Bump release PR
+
+# Opens a PR that bumps in-tree package versions. After merge, create a GitHub
+# Release (tag vX.Y.Z) to run the publish workflows; also tag packages/go/vX.Y.Z
+# when Go should ship.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "SemVer without leading v (example: 1.0.2)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: bump-release-pr
+  cancel-in-progress: false
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Validate version
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          if [[ "$VERSION" == v* ]]; then
+            echo "::error::Version must not include a leading v (got $VERSION)"
+            exit 1
+          fi
+          if ! [[ "$VERSION" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Invalid semver: $VERSION"
+            exit 1
+          fi
+          if git ls-remote --exit-code --tags origin "refs/tags/v${VERSION}" >/dev/null 2>&1; then
+            echo "::error::Tag v${VERSION} already exists on origin"
+            exit 1
+          fi
+
+      - name: Bump release metadata
+        run: node scripts/bump-release-version.mjs "${{ inputs.version }}"
+
+      - name: Refresh package-lock.json
+        run: npm install --package-lock-only
+
+      - name: Open version-bump PR
+        env:
+          VERSION: ${{ inputs.version }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          branch="chore/release-v${VERSION}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "::error::No version changes to commit (already at ${VERSION}?)"
+            exit 1
+          fi
+          git commit -m "chore: bump release metadata to v${VERSION}"
+          git push -u origin "$branch" --force-with-lease
+
+          body="$(cat <<EOF
+          Lockstep version bump for \`${VERSION}\`.
+
+          ### Files updated by this PR
+          - \`package.json\` (root)
+          - \`packages/core/package.json\`
+          - \`packages/typescript/package.json\`
+          - \`packages/cli/package.json\`
+          - \`packages/node-lease/package.json\` / \`packages/playground/package.json\` (\`@orbit-id/core\` dep, when present)
+          - \`package-lock.json\`
+          - \`packages/java/pom.xml\`
+          - \`packages/rust/Cargo.toml\`
+
+          ### Not in-tree (tag at release time)
+          - **Go** — create tag \`packages/go/v${VERSION}\` on the same commit as \`v${VERSION}\`
+          - **PHP** — Packagist follows monorepo tag \`v${VERSION}\` via the \`orbit-id/php\` mirror (no \`composer.json\` version field)
+
+          ### After merge
+          1. Create a GitHub Release for \`v${VERSION}\` (tag on \`main\`) so publish workflows run.
+          2. If Go should ship: \`git tag packages/go/v${VERSION} && git push origin packages/go/v${VERSION}\`
+          EOF
+          )"
+
+          existing="$(gh pr list --head "$branch" --base main --state open --json number --jq '.[0].number // empty')"
+          if [[ -n "$existing" ]]; then
+            gh pr edit "$existing" --title "chore: bump release metadata to v${VERSION}" --body "$body"
+            echo "Updated PR #${existing}"
+          else
+            gh pr create --base main --head "$branch" --title "chore: bump release metadata to v${VERSION}" --body "$body"
+          fi
