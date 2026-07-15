@@ -47,7 +47,7 @@ Notes:
 
 - Prefer a **coordinated** `vX.Y.Z` cut (same number in npm / Java / Rust / Go / PHP tags) for **X** and **Y**.
 - For **Z**, bump **only** that ecosystem’s metadata (and still use a monorepo `vX.Y.Z` tag when you need publish workflows). Other manifests MAY stay unchanged; npm / crates skip already-published versions.
-- The **Bump release PR** Action (`.github/workflows/release.yml`) opens a lockstep version-bump PR for the public cut. Use it for coordinated **X** / **Y** (and intentional lockstep **Z**). For a true language-only **Z**, bump that package manually (or extend the Action later with per-ecosystem toggles).
+- The **Bump release PR** Action (`.github/workflows/bump-release-pr.yml`) opens a lockstep version-bump PR for the public cut. Use it for coordinated **X** / **Y** (and intentional lockstep **Z**). For a true language-only **Z**, bump that package manually (or extend the Action later with per-ecosystem toggles).
 
 ## Version metadata per package
 
@@ -117,7 +117,7 @@ Security reports: repository Security advisories (see [Security](security.md)).
 
 ## Maintainer checklist (coordinated release)
 
-Preferred: run **Bump release PR** (`.github/workflows/release.yml`) via
+Preferred: run **Bump release PR** (`.github/workflows/bump-release-pr.yml`) via
 **Actions → Bump release PR → Run workflow**. It bumps in-tree versions and opens a PR.
 After that PR merges, **create a GitHub Release** for `vX.Y.Z` so the existing publish
 workflows run on the tag. Also push `packages/go/vX.Y.Z` when Go should ship.
