@@ -1,0 +1,141 @@
+name: Release
+
+# Coordinated release: bump in-tree versions → commit → tag.
+# Existing Publish / Maven / crates / Packagist workflows then run on the new tags.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "SemVer without leading v (example: 1.0.2)"
+        required: true
+        type: string
+      tag_go:
+        description: "Also create packages/go/vX.Y.Z"
+        required: true
+        type: boolean
+        default: true
+      create_github_release:
+        description: "Create a GitHub Release for vX.Y.Z"
+        required: true
+        type: boolean
+        default: true
+      dry_run:
+        description: "Bump locally in the runner but do not commit/tag/push"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Validate version
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          if [[ "$VERSION" == v* ]]; then
+            echo "::error::Version must not include a leading v (got $VERSION)"
+            exit 1
+          fi
+          if ! [[ "$VERSION" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Invalid semver: $VERSION"
+            exit 1
+          fi
+          if git rev-parse "v${VERSION}" >/dev/null 2>&1; then
+            echo "::error::Tag v${VERSION} already exists"
+            exit 1
+          fi
+          if [[ "${{ inputs.tag_go }}" == "true" ]] && git rev-parse "packages/go/v${VERSION}" >/dev/null 2>&1; then
+            echo "::error::Tag packages/go/v${VERSION} already exists"
+            exit 1
+          fi
+
+      - name: Bump release metadata
+        run: node scripts/bump-release-version.mjs "${{ inputs.version }}"
+
+      - name: Refresh package-lock.json
+        run: npm install --package-lock-only
+
+      - name: Show diff
+        run: git diff --stat && git diff
+
+      - name: Commit, tag, and push
+        if: ${{ !inputs.dry_run }}
+        env:
+          VERSION: ${{ inputs.version }}
+          TAG_GO: ${{ inputs.tag_go }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "::error::No version changes to commit (already at ${VERSION}?)"
+            exit 1
+          fi
+          git commit -m "chore: release v${VERSION}"
+          git tag "v${VERSION}"
+          if [[ "$TAG_GO" == "true" ]]; then
+            git tag "packages/go/v${VERSION}"
+          fi
+          git push origin HEAD
+          git push origin "v${VERSION}"
+          if [[ "$TAG_GO" == "true" ]]; then
+            git push origin "packages/go/v${VERSION}"
+          fi
+
+      # GITHUB_TOKEN pushes do not re-trigger tag workflows; dispatch explicitly on the new tag.
+      - name: Dispatch publish workflows
+        if: ${{ !inputs.dry_run }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          ref="v${VERSION}"
+          for wf in publish.yml publish-maven.yml publish-crates.yml publish-packagist.yml; do
+            echo "dispatch ${wf} @ ${ref}"
+            gh workflow run "$wf" --ref "$ref"
+          done
+
+      - name: Create GitHub Release
+        if: ${{ !inputs.dry_run && inputs.create_github_release }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          body="$(cat <<EOF
+          Coordinated monorepo release \`v${VERSION}\`.
+
+          Publishers (npm / Maven / crates.io / Packagist mirror) are dispatched on this tag.
+          Go module tag: \`packages/go/v${VERSION}\` (when enabled).
+
+          See [Cross-registry versioning](https://github.com/orbit-id/orbit-id/blob/main/docs/en/cross-registry-versioning.md).
+          EOF
+          )"
+          gh release create "v${VERSION}" --title "v${VERSION}" --notes "$body"
+
+      - name: Dry-run notice
+        if: ${{ inputs.dry_run }}
+        run: echo "Dry run only — no commit, tag, or release was created."

@@ -97,15 +97,37 @@ GOPROXY=https://proxy.golang.org,direct go list -m github.com/orbit-id/orbit-id/
 
 ## メンテナ checklist（同時リリース）
 
+推奨: GitHub Actions の **Release**（`.github/workflows/release.yml`）を
+**Actions → Release → Run workflow** で実行する。ツリー内バージョンを bump → commit → タグ作成のあと、
+既存の Publish workflow を同じタグ ref で明示的に dispatch する。
+
+入力:
+
+- `version` — `v` なしの SemVer（例: `1.0.2`）
+- `tag_go` — `packages/go/vX.Y.Z` も作る（既定オン）
+- `create_github_release` — `vX.Y.Z` の GitHub Release を作る（既定オン）
+- `dry_run` — bump の diff だけ（commit/tag なし）
+
+ローカルでの dry-run / bump（タグなし）:
+
+```bash
+npm run release:bump -- 1.0.2 --dry-run
+npm run release:bump -- 1.0.2
+npm install --package-lock-only
+```
+
+Action を使わない場合の手順:
+
 1. `X.Y.Z` の互換性を確認（特に major）。
 2. 公開したいパッケージのツリー内バージョンを bump（npm / Java / Rust。PHP はタグ。Go はサブディレクトリタグ）。
 3. `main` の CI が緑であること。
 4. タグを push:
    - 必須: `vX.Y.Z`
    - Go 更新時: `packages/go/vX.Y.Z`
-5. 確認: npm Publish、および #54–#57 の手順。
+5. 確認: npm / Maven / crates / Packagist の Publish workflow。
 6. 出荷したレジストリの install コマンドをスポットチェック。
 
+既存タグのあとにバージョンだけ書き換えても、publisher はそのタグのコミットを見るため効きません。
 ## 関連
 
 - [npm Trusted Publishing](npm-trusted-publishing.md)
