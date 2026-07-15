@@ -100,6 +100,27 @@ Security reports: repository Security advisories (see [Security](security.md)).
 
 ## Maintainer checklist (coordinated release)
 
+Preferred: run the **Release** GitHub Action (`.github/workflows/release.yml`) via
+**Actions → Release → Run workflow**. It bumps in-tree versions, commits, and creates tags
+**before** the publish workflows run.
+
+Inputs:
+
+- `version` — SemVer without `v` (example: `1.0.2`)
+- `tag_go` — also create `packages/go/vX.Y.Z` (default on)
+- `create_github_release` — open a GitHub Release for `vX.Y.Z` (default on)
+- `dry_run` — show the bump diff only (no commit/tag)
+
+Local dry-run / bump without tagging:
+
+```bash
+npm run release:bump -- 1.0.2 --dry-run
+npm run release:bump -- 1.0.2
+npm install --package-lock-only
+```
+
+Manual checklist (if not using the Action):
+
 1. Confirm Spec / Library API compatibility for the `X.Y.Z` bump (especially major).
 2. Bump in-tree versions for packages you intend to publish (npm / Java / Rust; PHP via tag; Go via subdirectory tag).
 3. Run CI green on `main` (`npm` test/build/typecheck/bench + language jobs).
@@ -108,11 +129,13 @@ Security reports: repository Security advisories (see [Security](security.md)).
    - if Go should update: `packages/go/vX.Y.Z`
 5. Confirm:
    - npm Publish workflow (if any npm package version is new)
-   - later: Maven / crates / Packagist workflows or manual steps from #54–#57
+   - Maven / crates / Packagist workflows
 6. Spot-check install commands for each registry that shipped.
 
 Packaging-only release (one ecosystem): bump that ecosystem only, still use a new `vX.Y.Z`, and
 create `packages/go/vX.Y.Z` only if Go changed.
+
+Do **not** rewrite versions after an existing tag: publishers check out the tagged commit.
 
 ## Related
 
