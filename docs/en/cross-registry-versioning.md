@@ -118,10 +118,15 @@ Security reports: repository Security advisories (see [Security](security.md)).
 ## Maintainer checklist (coordinated release)
 
 Preferred: run the **Release** GitHub Action (`.github/workflows/release.yml`) via
-**Actions → Release → Run workflow**. It bumps in-tree versions, opens a `release/vX.Y.Z` PR,
-**squash-merges** it (required: `main` ruleset blocks direct pushes / unsigned commits), creates
-tags, then **dispatches** the existing publish workflows on `vX.Y.Z` (needed because
-`GITHUB_TOKEN` tag pushes do not re-trigger other workflows).
+**Actions → Release → Run workflow**. It bumps in-tree versions, commits to `main`, creates tags, then
+**dispatches** the existing publish workflows on `vX.Y.Z` (needed because `GITHUB_TOKEN` tag
+pushes do not re-trigger other workflows).
+
+The `main` ruleset must allow the Release actor to bypass PR / signed-commit / coverage rules:
+
+1. Prefer: Rules → **main** → Bypass list → add **GitHub Actions** (mode: Always).
+2. Fallback: org-admin classic or fine-grained PAT as repo secret `RELEASE_TOKEN` (Contents: Read and write). Organization admins are already on the bypass list.
+
 
 Inputs:
 
