@@ -135,9 +135,8 @@ In-tree bumps (Action / `npm run release:bump`):
 Inputs:
 
 - `version` — SemVer without `v` (example: `1.0.2`)
-- `dry_run` — show the bump diff only (no PR)
 
-Local dry-run / bump without tagging:
+Local bump without tagging:
 
 ```bash
 npm run release:bump -- 1.0.2 --dry-run

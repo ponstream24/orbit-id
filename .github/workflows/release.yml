@@ -10,11 +10,6 @@ on:
         description: "SemVer without leading v (example: 1.0.2)"
         required: true
         type: string
-      dry_run:
-        description: "Show diff only; do not open a PR"
-        required: true
-        type: boolean
-        default: false
 
 permissions:
   contents: write
@@ -60,11 +55,7 @@ jobs:
       - name: Refresh package-lock.json
         run: npm install --package-lock-only
 
-      - name: Show diff
-        run: git diff --stat && git diff
-
       - name: Open version-bump PR
-        if: ${{ inputs.dry_run != true }}
         env:
           VERSION: ${{ inputs.version }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -113,7 +104,3 @@ jobs:
           else
             gh pr create --base main --head "$branch" --title "chore: bump release metadata to v${VERSION}" --body "$body"
           fi
-
-      - name: Dry-run notice
-        if: ${{ inputs.dry_run == true }}
-        run: echo "Dry run only — no branch or PR was created."

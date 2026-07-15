@@ -132,9 +132,8 @@ Go を出すときは同じコミットに `packages/go/vX.Y.Z` も打つ。
 入力:
 
 - `version` — `v` なしの SemVer（例: `1.0.2`）
-- `dry_run` — bump の diff だけ（PR なし）
 
-ローカルでの dry-run / bump（タグなし）:
+ローカルでの bump（タグなし）:
 
 ```bash
 npm run release:bump -- 1.0.2 --dry-run
