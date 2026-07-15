@@ -79,8 +79,9 @@ jobs:
       - name: Show diff
         run: git diff --stat && git diff
 
+      # Boolean inputs are often the strings "true"/"false"; !"false" is truthy in expressions.
       - name: Commit, tag, and push
-        if: ${{ !inputs.dry_run }}
+        if: ${{ inputs.dry_run != true }}
         env:
           VERSION: ${{ inputs.version }}
           TAG_GO: ${{ inputs.tag_go }}
@@ -106,7 +107,7 @@ jobs:
 
       # GITHUB_TOKEN pushes do not re-trigger tag workflows; dispatch explicitly on the new tag.
       - name: Dispatch publish workflows
-        if: ${{ !inputs.dry_run }}
+        if: ${{ inputs.dry_run != true }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ inputs.version }}
@@ -119,7 +120,7 @@ jobs:
           done
 
       - name: Create GitHub Release
-        if: ${{ !inputs.dry_run && inputs.create_github_release }}
+        if: ${{ inputs.dry_run != true && inputs.create_github_release == true }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ inputs.version }}
@@ -137,5 +138,5 @@ jobs:
           gh release create "v${VERSION}" --title "v${VERSION}" --notes "$body"
 
       - name: Dry-run notice
-        if: ${{ inputs.dry_run }}
+        if: ${{ inputs.dry_run == true }}
         run: echo "Dry run only — no commit, tag, or release was created."
