@@ -52,9 +52,14 @@ timestamp = floor(current_unix_time_ms) - 1767225600000
 
 ### 3.2 Type
 
-Type is the logical entity kind the ID belongs to. It MUST NOT represent attributes that can change
-later, such as physical table name, permissions, or state. Numeric assignments are owned by each
-deployer / organization; see [Type field guidance](type-registry.md).
+Type is the logical entity kind the ID belongs to (`0..63`). Value `0` is reserved; implementations
+MUST reject `generate(0)`. Values `1..63` are available for application assignment.
+
+Type MUST NOT represent attributes that can change later, such as physical table name, permissions,
+roles, or state. Each deployer / organization chooses numeric meanings. Within a deployment, once a
+value has been used in durable data, its meaning MUST NOT be changed or reused. If an entity later
+needs a different identity boundary, issue a new ID under a different Type and relate the two in
+the data model.
 
 ### 3.3 Node
 
@@ -201,10 +206,6 @@ incompatible format, identify it via storage column, API field, prefix, or exter
 Existing IDs MUST NOT be reinterpreted as a new format.
 
 ## 14. Normative companion documents
-
-Type field rules (application-owned assignment maps) live in
-[Type field guidance](type-registry.md). Within a deployment, meanings already used in durable data
-MUST NOT change.
 
 Default clock-rollback tolerance is defined in §7 (`5_000` ms).
 

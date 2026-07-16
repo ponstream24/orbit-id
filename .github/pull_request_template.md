@@ -12,7 +12,6 @@ Closes #
 - [ ] Checked impact on clock rollback, overflow, and concurrency
 - [ ] Checked impact on storage / JSON interoperability
 - [ ] Updated the required specification, docs, and test vectors together
-- [ ] Followed Type field guidance when choosing Type values
 
 ## Test plan
 

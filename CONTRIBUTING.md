@@ -11,7 +11,6 @@ packages. Stable v1 interpretation is frozen; see the compatibility section belo
 1. Open an issue describing the requirement and use case.
 2. If the change affects the bit layout or wire format, include compatibility and a migration plan.
 3. In the pull request, update the specification, related docs, and test vectors together.
-4. Follow the [Type field guidance](docs/en/type-registry.md) when choosing Type values.
 
 ## Documentation style
 
