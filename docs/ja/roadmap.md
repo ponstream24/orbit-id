@@ -9,8 +9,8 @@ ID 生成アルゴリズム** として育てることを目指します。
 
 - [x] Orbit ID v1 の bit layout と epoch の Draft
 - [x] Canonical test vectors
-- [x] Type registry Draft と Node 管理ガイド
-- [x] Type の正式割当
+- [x] Type field guidance と Node 管理ガイド
+- [x] Type 割当は deployer 所有と明記（公開のプロダクトカタログは置かない）
 - [x] 本番の Node 割当方式
 - [x] Node 再利用の quarantine 期間
 - [x] 時計巻き戻りの既定許容時間

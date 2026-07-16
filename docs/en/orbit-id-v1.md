@@ -53,8 +53,8 @@ timestamp = floor(current_unix_time_ms) - 1767225600000
 ### 3.2 Type
 
 Type is the logical entity kind the ID belongs to. It MUST NOT represent attributes that can change
-later, such as physical table name, permissions, or state. Assignments follow the
-[Type Registry](type-registry.md).
+later, such as physical table name, permissions, or state. Numeric assignments are owned by each
+deployer / organization; see [Type field guidance](type-registry.md).
 
 ### 3.3 Node
 
@@ -106,7 +106,7 @@ them.
 Each generator retains at least `node_id`, `last_timestamp`, and `sequence`.
 `generate(type)` MUST be serialized within the same generator.
 
-1. Confirm Type is issuable in the registry and Node is in range.
+1. Confirm Type is in `1..63` (not reserved `0`) and Node is in range.
 2. Obtain the current Timestamp in milliseconds.
 3. Fail if the value is before the Epoch or beyond the 41-bit maximum.
 4. If the current value is less than `last_timestamp`, follow section 7.
@@ -202,8 +202,9 @@ Existing IDs MUST NOT be reinterpreted as a new format.
 
 ## 14. Normative companion documents
 
-Official Type assignments live in the [Type Registry](type-registry.md). Assigned meanings MUST NOT
-change within v1.
+Type field rules (application-owned assignment maps) live in
+[Type field guidance](type-registry.md). Within a deployment, meanings already used in durable data
+MUST NOT change.
 
 Default clock-rollback tolerance is defined in §7 (`5_000` ms).
 

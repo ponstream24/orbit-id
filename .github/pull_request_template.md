@@ -12,7 +12,7 @@ Closes #
 - [ ] Checked impact on clock rollback, overflow, and concurrency
 - [ ] Checked impact on storage / JSON interoperability
 - [ ] Updated the required specification, docs, and test vectors together
-- [ ] Followed Type Registry rules when adding or changing a Type
+- [ ] Followed Type field guidance; no product-specific Type map in this repo
 
 ## Test plan
 

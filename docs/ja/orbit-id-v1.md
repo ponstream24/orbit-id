@@ -54,7 +54,8 @@ timestamp = floor(current_unix_time_ms) - 1767225600000
 ### 3.2 Type
 
 Type は、ID が属する論理エンティティ種別です。物理テーブル名、権限、状態など、後から
-変わり得る属性を表してはなりません。割当は [Type Registry](type-registry.md) に従います。
+変わり得る属性を表してはなりません。数値の割当は各 deployer / 組織が持ちます。
+[Type field guidance](type-registry.md) を参照してください。
 
 ### 3.3 Node
 
@@ -105,7 +106,7 @@ unix_time_ms = timestamp + 1767225600000
 各ジェネレーターは、少なくとも `node_id`、`last_timestamp`、`sequence` を保持します。
 `generate(type)` は、同一ジェネレーター内で直列化されなければなりません。
 
-1. Type が registry 上で発行可能であり、Node が有効範囲であることを確認する。
+1. Type が `1..63`（予約の `0` 以外）であり、Node が有効範囲であることを確認する。
 2. 現在の Timestamp をミリ秒で取得する。
 3. Epoch より前、または 41-bit 上限を超える場合は失敗する。
 4. 現在値が `last_timestamp` より小さければ、7 節の規則に従う。
@@ -199,7 +200,8 @@ Orbit ID は秘密値ではありません。発行時刻、Type、Node、およ
 
 ## 14. 規範的な関連文書
 
-公式 Type 割当は [Type Registry](type-registry.md) を参照。割当済みの意味は v1 内で変更しません。
+Type フィールドの規則（割当マップはアプリ側）は [Type field guidance](type-registry.md) を参照。
+あるデプロイの永続データで使った意味は変更してはなりません。
 
 時計巻き戻りの既定許容時間は §7（`5_000` ms）で定義します。
 
