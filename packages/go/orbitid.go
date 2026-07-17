@@ -404,3 +404,5 @@ func (g *Generator) waitUntil(predicate func(int64) bool) error {
 	}
 	return nil
 }
+
+// ci-smoke: go (do not merge)
