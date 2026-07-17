@@ -173,3 +173,5 @@ public final class OrbitId {
         }
     }
 }
+
+// ci-smoke: java (do not merge)
