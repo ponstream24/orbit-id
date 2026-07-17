@@ -40,17 +40,17 @@ function render(): void {
       </a>
       <div class="top-right">
         <label class="lang-switch">
-          <span class="lang-label">${t.langLabel}</span>
-          <select id="locale-select" aria-label="${t.langLabel}">
-            <option value="en" ${locale === "en" ? "selected" : ""}>${t.langEn}</option>
-            <option value="ja" ${locale === "ja" ? "selected" : ""}>${t.langJa}</option>
+          <span class="lang-label">${escapeHtml(t.langLabel)}</span>
+          <select id="locale-select" aria-label="${escapeAttr(t.langLabel)}">
+            <option value="en" ${locale === "en" ? "selected" : ""}>${escapeHtml(t.langEn)}</option>
+            <option value="ja" ${locale === "ja" ? "selected" : ""}>${escapeHtml(t.langJa)}</option>
           </select>
         </label>
-        <nav class="top-links" aria-label="${t.navAria}">
-          <a href="${t.docsSpec}" target="_blank" rel="noreferrer">${t.spec}</a>
-          <a href="${t.docsVectors}" target="_blank" rel="noreferrer">${t.testVectors}</a>
-          <a href="https://github.com/orbit-id/orbit-id/tree/main/spec/conformance" target="_blank" rel="noreferrer">${t.conformance}</a>
-          <a href="https://github.com/orbit-id/orbit-id" target="_blank" rel="noreferrer">${t.github}</a>
+        <nav class="top-links" aria-label="${escapeAttr(t.navAria)}">
+          <a href="${escapeAttr(t.docsSpec)}" target="_blank" rel="noreferrer">${escapeHtml(t.spec)}</a>
+          <a href="${escapeAttr(t.docsVectors)}" target="_blank" rel="noreferrer">${escapeHtml(t.testVectors)}</a>
+          <a href="https://github.com/orbit-id/orbit-id/tree/main/spec/conformance" target="_blank" rel="noreferrer">${escapeHtml(t.conformance)}</a>
+          <a href="https://github.com/orbit-id/orbit-id" target="_blank" rel="noreferrer">${escapeHtml(t.github)}</a>
         </nav>
       </div>
     </header>
@@ -59,80 +59,89 @@ function render(): void {
       <div class="page-head">
         <div class="badge">
           <span class="badge-dot" aria-hidden="true"></span>
-          <span>${t.badge}</span>
+          <span>${escapeHtml(t.badge)}</span>
         </div>
-        <h1 class="page-title">${t.pageTitle}</h1>
-        <p class="page-desc">${t.pageDesc}</p>
+        <h1 class="page-title">${escapeHtml(t.pageTitle)}</h1>
+        <p class="page-desc">${escapeHtml(t.pageDesc)}</p>
         <ul class="checks">
-          <li>${t.checkLocal}</li>
-          <li>${t.checkNoServer}</li>
+          <li>${escapeHtml(t.checkLocal)}</li>
+          <li>${escapeHtml(t.checkNoServer)}</li>
         </ul>
       </div>
 
       <section class="grid">
         <article class="card">
           <div class="card-head">
-            <h2>${t.parse}</h2>
-            <button type="button" class="btn btn-ghost" id="btn-parse-clear">${t.clear}</button>
+            <h2>${escapeHtml(t.parse)}</h2>
+            <button type="button" class="btn btn-ghost" id="btn-parse-clear">${escapeHtml(t.clear)}</button>
           </div>
           <div class="card-body">
             <div class="field">
-              <label for="id-input">${t.decimalId}</label>
+              <label for="id-input">${escapeHtml(t.decimalId)}</label>
               <input
                 class="mono"
                 id="id-input"
                 inputmode="numeric"
                 spellcheck="false"
                 placeholder="140612821619842090"
-                value="${escapeAttr(idDraft)}"
               />
             </div>
             <div class="actions">
-              <button type="button" class="btn btn-primary" id="btn-parse">${t.parseAction}</button>
+              <button type="button" class="btn btn-primary" id="btn-parse">${escapeHtml(t.parseAction)}</button>
             </div>
-            <div id="parse-out" class="panel" aria-live="polite">${t.resultPlaceholder}</div>
+            <div id="parse-out" class="panel" aria-live="polite"></div>
           </div>
         </article>
 
         <article class="card">
           <div class="card-head">
-            <h2>${t.generateEncode}</h2>
-            <button type="button" class="btn btn-ghost" id="btn-gen-clear">${t.clear}</button>
+            <h2>${escapeHtml(t.generateEncode)}</h2>
+            <button type="button" class="btn btn-ghost" id="btn-gen-clear">${escapeHtml(t.clear)}</button>
           </div>
           <div class="card-body">
             <div class="row">
               <div class="field">
-                <label for="type">${t.type}</label>
-                <input id="type" type="number" min="1" max="63" value="${escapeAttr(typeDraft)}" />
+                <label for="type">${escapeHtml(t.type)}</label>
+                <input id="type" type="number" min="1" max="63" />
               </div>
               <div class="field">
-                <label for="node">${t.node}</label>
-                <input id="node" type="number" min="0" max="127" value="${escapeAttr(nodeDraft)}" />
+                <label for="node">${escapeHtml(t.node)}</label>
+                <input id="node" type="number" min="0" max="127" />
               </div>
             </div>
             <div class="row">
               <div class="field">
-                <label for="timestamp">${t.timestamp}</label>
-                <input class="mono" id="timestamp" inputmode="numeric" placeholder="auto" value="${escapeAttr(timestampDraft)}" />
+                <label for="timestamp">${escapeHtml(t.timestamp)}</label>
+                <input class="mono" id="timestamp" inputmode="numeric" placeholder="auto" />
               </div>
               <div class="field">
-                <label for="sequence">${t.sequence}</label>
-                <input id="sequence" type="number" min="0" max="1023" placeholder="0" value="${escapeAttr(sequenceDraft)}" />
+                <label for="sequence">${escapeHtml(t.sequence)}</label>
+                <input id="sequence" type="number" min="0" max="1023" placeholder="0" />
               </div>
             </div>
             <div class="actions">
-              <button type="button" class="btn btn-primary" id="btn-generate">${t.generateAction}</button>
-              <button type="button" class="btn btn-ghost" id="btn-encode">${t.encodeAction}</button>
+              <button type="button" class="btn btn-primary" id="btn-generate">${escapeHtml(t.generateAction)}</button>
+              <button type="button" class="btn btn-ghost" id="btn-encode">${escapeHtml(t.encodeAction)}</button>
             </div>
-            <div id="gen-out" class="panel" aria-live="polite">${t.resultPlaceholder}</div>
+            <div id="gen-out" class="panel" aria-live="polite"></div>
           </div>
         </article>
       </section>
 
-      <p class="foot">${t.footer}</p>
+      <p class="foot" id="footer"></p>
     </main>
   </div>
 `;
+
+  // Restore drafts via DOM properties (never re-inject DOM text into innerHTML).
+  must<HTMLInputElement>("#id-input").value = idDraft;
+  must<HTMLInputElement>("#type").value = typeDraft;
+  must<HTMLInputElement>("#node").value = nodeDraft;
+  must<HTMLInputElement>("#timestamp").value = timestampDraft;
+  must<HTMLInputElement>("#sequence").value = sequenceDraft;
+  resetPanel(must("#parse-out"), t.resultPlaceholder);
+  resetPanel(must("#gen-out"), t.resultPlaceholder);
+  must("#footer").innerHTML = t.footer;
 
   bind();
 }
@@ -252,6 +261,10 @@ function must<T extends HTMLElement>(sel: string): T {
 }
 
 function escapeAttr(value: string): string {
+  return escapeHtml(value).replaceAll("'", "&#39;");
+}
+
+function escapeHtml(value: string): string {
   return value
     .replaceAll("&", "&amp;")
     .replaceAll('"', "&quot;")
