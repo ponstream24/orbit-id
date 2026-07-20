@@ -16,6 +16,17 @@ spec/conformance/
 
 Additional files MAY be added with the same naming pattern: `<category>.v1.json`.
 
+### v2 (planned)
+
+Orbit ID v2 Draft fixtures are not checked in yet. When added, use:
+
+- `encode-decode.v2.json`
+- `decode-reject.v2.json`
+- `generator.v2.json`
+
+with `spec: "orbit-id/v2"` (and an appropriate `version` string). Until then, human-readable
+stubs live in [Canonical Test Vectors](../docs/en/test-vectors.md#orbit-id-v2-draft-stub).
+
 ## Common envelope
 
 Every fixture file is a JSON object:
